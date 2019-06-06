@@ -18,15 +18,17 @@ package com.zsw.algorithms;
  * 说明:
  * <p>
  * 你的算法的时间复杂度应为O(n)，并且只能使用常数级别的空间。
- *
+ *x
  * @author ZhangShaowei on 2019/5/31 11:18
  **/
 public class FirstMissingPositive {
 
     public static void main(String[] args) {
 
+        System.out.println(firstMissingPositive(new int[]{1}));
+        System.out.println(firstMissingPositive(new int[]{1,2,4}));
         System.out.println(firstMissingPositive(new int[]{1, 2, 0}));
-        System.out.println(firstMissingPositive(new int[]{3, 4, -1, 1}));
+        System.out.println(firstMissingPositive(new int[]{3, 4, -1, 1})); //
         System.out.println(firstMissingPositive(new int[]{7, 8, 9, 11, 12}));
 
     }
@@ -42,16 +44,16 @@ public class FirstMissingPositive {
         if (nums == null || nums.length == 0) {
             return 1;
         }
-        int index = 0;
-        int len = nums.length;
-        // 将 nums[i] 设置到 对应下标，若大于数组长度 len 则设置为 -1，小于 0 则不处理
-        for (int i = 0; i < len; i++) {
-            if (nums[i] > len || nums[i] == 0) {
-                nums[i] = -1;
-            } else if (nums[i] > 0) {
-                nums[nums[i] - 1] = nums[i];
+        int index = nums.length;
+
+        // 取出对应数字作为下标，将当前位置设为 -1，若某个正整数不存在，则对应下标位置未被改变
+        for (int i = 0; i < index; i++) {
+            if (nums[i] > 0 && nums[i] < index + 1) {
+                nums[nums[i] - 1] = -1;
             }
         }
+
+
 
         return index;
 
